@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winnie Logo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #050510 0%, #0a0a20 50%, #050518 100%);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .logo-container {
+            position: relative;
+            width: 700px;
+            height: 200px;
+        }
+
+        .letter {
+            position: absolute;
+            font-family: 'Arial Black', sans-serif;
+            font-size: 120px;
+            font-weight: 900;
+            opacity: 0;
+            transform: translateY(-100px);
+            z-index: 10;
+        }
+
+        /* Winnie 的每个字母 */
+        .letter-w {
+            left: 20px;
+            color: #FFD54F; /* 亮黄色 */
+            text-shadow: 0 0 20px rgba(255, 213, 79, 0.9);
+            background: rgba(255, 213, 79, 0.25);
+            padding: 5px 20px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 213, 79, 0.8);
+        }
+
+        .letter-i1 {
+            left: 140px;
+            color: #FF8A65; /* 亮珊瑚色 */
+            text-shadow: 0 0 20px rgba(255, 138, 101, 0.9);
+            background: rgba(255, 138, 101, 0.25);
+            padding: 5px 15px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 138, 101, 0.8);
+        }
+
+        .letter-n1 {
+            left: 210px;
+            color: #FF5252; /* 亮红色 */
+            text-shadow: 0 0 20px rgba(255, 82, 82, 0.9);
+            background: rgba(255, 82, 82, 0.25);
+            padding: 5px 15px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 82, 82, 0.8);
+        }
+
+        .letter-n2 {
+            left: 330px;
+            color: #AB47BC; /* 亮紫色 */
+            text-shadow: 0 0 20px rgba(171, 71, 188, 0.9);
+            background: rgba(171, 71, 188, 0.25);
+            padding: 5px 15px;
+            border-radius: 10px;
+            border: 2px solid rgba(171, 71, 188, 0.8);
+        }
+
+        .letter-i2 {
+            left: 420px;
+            color: #FF8A65; /* 亮珊瑚色 */
+            text-shadow: 0 0 20px rgba(255, 138, 101, 0.9);
+            background: rgba(255, 138, 101, 0.25);
+            padding: 5px 15px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 138, 101, 0.8);
+        }
+
+        .letter-e {
+            left: 490px;
+            color: #66BB6A; /* 亮绿色 */
+            text-shadow: 0 0 20px rgba(102, 187, 106, 0.9);
+            background: rgba(102, 187, 106, 0.25);
+            padding: 5px 20px;
+            border-radius: 10px;
+            border: 2px solid rgba(102, 187, 106, 0.8);
+        }
+
+        /* 动画 */
+        @keyframes dropIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-200px) rotate(-10deg);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(20px) rotate(5deg);
+            }
+            80% {
+                transform: translateY(-10px) rotate(-3deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotate(0);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px currentColor);
+            }
+            50% {
+                filter: drop-shadow(0 0 30px currentColor);
+            }
+        }
+
+        .letter.animated {
+            animation: dropIn 0.8s ease-out forwards;
+        }
+
+        .letter.animated.bounce {
+            animation: dropIn 0.8s ease-out forwards, bounce 2s ease-in-out infinite 1s;
+        }
+
+        /* 小米风格的边框效果 */
+        .mi-frame {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 4px solid rgba(255, 213, 79, 0.8);
+            border-radius: 20px;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: frameIn 0.5s ease-out forwards 2s;
+        }
+
+        @keyframes frameIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* 维尼熊耳朵效果 */
+        .ear {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 213, 79, 0.5);
+            border-radius: 50%;
+            opacity: 0;
+            border: 2px solid rgba(255, 213, 79, 0.8);
+        }
+
+        .ear-left {
+            top: -20px;
+            left: 40px;
+            animation: earDrop 0.5s ease-out forwards 0.3s;
+        }
+
+        .ear-right {
+            top: -20px;
+            right: 40px;
+            animation: earDrop 0.5s ease-out forwards 0.5s;
+        }
+
+        @keyframes earDrop {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subtitle {
+            margin-top: 40px;
+            font-size: 18px;
+            color: #ffffff;
+            opacity: 0;
+            letter-spacing: 4px;
+            animation: fadeIn 1s ease-out forwards 2.5s;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 闪光效果 */
+        .sparkle {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        .sparkle:nth-child(1) { top: 20%; left: 10%; animation: sparkle 1.5s ease-in-out infinite 3s; }
+        .sparkle:nth-child(2) { top: 30%; right: 15%; animation: sparkle 1.5s ease-in-out infinite 3.3s; }
+        .sparkle:nth-child(3) { bottom: 20%; left: 20%; animation: sparkle 1.5s ease-in-out infinite 3.6s; }
+        .sparkle:nth-child(4) { bottom: 30%; right: 10%; animation: sparkle 1.5s ease-in-out infinite 3.9s; }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* 背景装饰 */
+        .background-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255, 213, 79, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 138, 101, 0.3) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        /* 小猫动画 */
+        .cat {
+            position: absolute;
+            bottom: -20px;
+            right: -150px;
+            width: 100px;
+            height: 75px;
+            opacity: 0;
+            animation: catWalk 8s linear forwards;
+        }
+
+        /* 静态小猫（坐下姿势） */
+        .cat-static {
+            position: absolute;
+            bottom: -15px;
+            left: 570px;
+            width: 70px;
+            height: auto;
+            opacity: 0;
+            z-index: 5;
+        }
+
+        @keyframes catWalk {
+            0% {
+                right: -150px;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            60% {
+                right: 490px; /* 停在 e 字母旁边 */
+                opacity: 1;
+            }
+            65% {
+                opacity: 0; /* 淡出视频 */
+            }
+            100% {
+                right: -150px;
+                opacity: 0;
+            }
+        }
+
+        @keyframes catStaticAppear {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-pattern"></div>
+    
+    <div class="logo-container">
+        <!-- 小猫视频 -->
+        <video src="制作猫咪走路视频.mp4" alt="Cat" class="cat" id="cat" autoplay loop muted playsinline></video>
+        
+        <!-- 静态小猫（动画结束后显示） -->
+        <img src="微信图片_20260207230441_24501_12.png" alt="Cat Sitting" class="cat-static" id="catStatic">
+        
+        <!-- 维尼熊耳朵 -->
+        <div class="ear ear-left"></div>
+        <div class="ear ear-right"></div>
+        
+        <!-- 小米风格边框 -->
+        <div class="mi-frame"></div>
+        
+        <!-- Winnie 文字 -->
+        <div class="letter letter-w" id="w">W</div>
+        <div class="letter letter-i1" id="i1">i</div>
+        <div class="letter letter-n1" id="n1">n</div>
+        <div class="letter letter-n2" id="n2">n</div>
+        <div class="letter letter-i2" id="i2">i</div>
+        <div class="letter letter-e" id="e">e</div>
+        
+        <!-- 闪光效果 -->
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+    </div>
+    
+    <div class="subtitle">宝宝包 <span class="heart">❤️</span> 宝宝</div>
+
+    <script>
+        // 动画序列
+        const letters = ['w', 'i1', 'n1', 'n2', 'i2', 'e'];
+        const delays = [0, 0.2, 0.4, 0.6, 0.8, 1.0];
+
+        // 小猫走路动画
+        const cat = document.getElementById('cat');
+        const catStatic = document.getElementById('catStatic');
+        
+        // 走路动画播放完成后显示静态小猫
+        cat.addEventListener('animationiteration', () => {
+            // 每次循环开始时隐藏静态小猫
+            catStatic.style.opacity = '0';
+        });
+
+        // 监听动画播放到指定位置时显示静态小猫
+        cat.addEventListener('timeupdate', () => {
+            const animationDuration = 8000; // 8秒
+            const targetTime = animationDuration * 0.65; // 65% 位置
+            if (cat.currentTime * 1000 >= targetTime && cat.paused === false) {
+                // 显示静态小猫
+                setTimeout(() => {
+                    catStatic.style.opacity = '1';
+                    catStatic.style.animation = 'catStaticAppear 0.5s ease-out forwards';
+                }, 100);
+            }
+        });
+
+        // 备用方案：使用 setTimeout
+        setTimeout(() => {
+            catStatic.style.opacity = '1';
+            catStatic.style.animation = 'catStaticAppear 0.5s ease-out forwards';
+        }, 5200); // 8秒 * 65% = 5.2秒后显示静态小猫
+
+        letters.forEach((letter, index) => {
+            setTimeout(() => {
+                const element = document.getElementById(letter);
+                element.classList.add('animated');
+                
+                // 给每个字母添加单独的弹跳动画
+                if (index === 2) { // 第二个n添加特殊效果
+                    setTimeout(() => {
+                        element.classList.add('bounce');
+                    }, 800);
+                }
+            }, delays[index] * 1000);
+        });
+
+        // 点击重新播放动画
+        document.querySelector('.logo-container').addEventListener('click', () => {
+            // 隐藏静态小猫
+            catStatic.style.opacity = '0';
+            
+            letters.forEach((letter) => {
+                const element = document.getElementById(letter);
+                element.classList.remove('animated', 'bounce');
+            });
+            
+            // 重置视频
+            cat.currentTime = 0;
+            
+            setTimeout(() => {
+                letters.forEach((letter, index) => {
+                    setTimeout(() => {
+                        const element = document.getElementById(letter);
+                        element.classList.add('animated');
+                    }, index * 200);
+                });
+            }, 100);
+        });
+
+        console.log('Vinnie Logo 加载完成！点击logo可重新播放动画。');
+    </script>
+</body>
+</html>
